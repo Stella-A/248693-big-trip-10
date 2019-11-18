@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Стелла Аббасова](https://up.htmlacademy.ru/ecmascript/10/user/248693).
-* Наставник: `Неизвестно`.
+* Наставник: [Сева Либеров](https://htmlacademy.ru/profile/id1229469).
 
 ---
 
