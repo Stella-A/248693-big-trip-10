@@ -1,7 +1,7 @@
 'use strict';
 
 const createMenuTemplate = () => {
-  return(
+  return (
     `<nav class="trip-controls__trip-tabs  trip-tabs">
       <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
       <a class="trip-tabs__btn" href="#">Stats</a>
@@ -10,7 +10,7 @@ const createMenuTemplate = () => {
 };
 
 const createFilterTemplate = () => {
-  return(
+  return (
     `<form class="trip-filters" action="#" method="get">
       <div class="trip-filters__filter">
         <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" checked>
@@ -33,7 +33,7 @@ const createFilterTemplate = () => {
 };
 
 const createSortTemplate = () => {
-  return(
+  return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day">Day</span>
 
@@ -68,13 +68,13 @@ const createSortTemplate = () => {
 };
 
 const createBoardTemplate = () => {
-  return(
+  return (
     `<ul class="trip-days"></ul>`
   );
 };
 
 const createTripDayTemplate = () => {
-  return(
+  return (
     `<li class="trip-days__item  day">
       <div class="day__info">
         <span class="day__counter">1</span>
@@ -87,7 +87,7 @@ const createTripDayTemplate = () => {
 };
 
 const createTripEventTemplate = () => {
-  return(
+  return (
     `<li class="trip-events__item">
       <div class="event">
         <div class="event__type">
@@ -126,7 +126,7 @@ const createTripEventTemplate = () => {
 };
 
 const createEditTripEventTemplate = () => {
-  return(
+  return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
       <header class="event__header">
         <div class="event__type-wrapper">
@@ -306,7 +306,7 @@ const createEditTripEventTemplate = () => {
 };
 
 const createInfoTripTemplate = () => {
-  return(
+  return (
     `<div class="trip-info__main">
       <h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>
 
