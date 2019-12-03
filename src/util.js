@@ -1,4 +1,3 @@
-
 const castDateInterval = (days) => {
   return days < 10 ? `0${days}D` : `${days}D`;
 };

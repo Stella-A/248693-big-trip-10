@@ -38,5 +38,10 @@ render(pageTripDaysElem, createTripDayTemplate(events[1]));
 
 const pageTripEventsElem = pageTripDaysElem.querySelector(`.trip-events__list`);
 
-render(pageTripEventsElem, createEditTripEventTemplate(events[1]));
-events.slice(2, EVENT_COUNT).forEach((event) => render(pageTripEventsElem, createTripEventTemplate(event)));
+for (let i = 1; i < EVENT_COUNT; i++) {
+  if (i === 1) {
+    render(pageTripEventsElem, createEditTripEventTemplate(events[i]));
+  } else {
+    render(pageTripEventsElem, createTripEventTemplate(events[i]));
+  }
+}
