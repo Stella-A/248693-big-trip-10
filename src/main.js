@@ -1,3 +1,4 @@
+import {generateEvents} from './mock/event.js';
 import {createMenuTemplate} from './components/menu.js';
 import {createSortTemplate} from './components/sorting.js';
 import {createFilterTemplate} from './components/filter.js';
@@ -6,6 +7,8 @@ import {createTripEventTemplate} from './components/event.js';
 import {createEditTripEventTemplate} from './components/event-edit.js';
 import {createInfoTripTemplate} from './components/event-info.js';
 import {createBoardTemplate} from './components/board.js';
+
+const EVENT_COUNT = 5;
 
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
@@ -22,19 +25,23 @@ render(pageControlElem, createFilterTemplate());
 
 const pageMainElem = document.querySelector(`.page-main`);
 const pageEventsElem = pageMainElem.querySelector(`.trip-events`);
+const events = generateEvents(EVENT_COUNT);
 
 render(pageEventsElem, createSortTemplate());
-render(pageEventsElem, createEditTripEventTemplate());
+render(pageEventsElem, createEditTripEventTemplate(events[0]));
+
 render(pageEventsElem, createBoardTemplate());
 
 const pageTripDaysElem = pageEventsElem.querySelector(`.trip-days`);
 
-render(pageTripDaysElem, createTripDayTemplate());
+render(pageTripDaysElem, createTripDayTemplate(events[1]));
 
 const pageTripEventsElem = pageTripDaysElem.querySelector(`.trip-events__list`);
 
-render(pageTripEventsElem, createEditTripEventTemplate());
-
-for (let i = 0; i < 3; i++) {
-  render(pageTripEventsElem, createTripEventTemplate());
+for (let i = 1; i < EVENT_COUNT; i++) {
+  if (i === 1) {
+    render(pageTripEventsElem, createEditTripEventTemplate(events[i]));
+  } else {
+    render(pageTripEventsElem, createTripEventTemplate(events[i]));
+  }
 }
