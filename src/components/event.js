@@ -1,4 +1,4 @@
-import {generateTimeInterval, formatedTime} from '../util.js';
+import {generateTimeInterval, formatedTime, createElement} from '../util.js';
 
 const createOfferTemplate = (options) => {
   return options
@@ -16,7 +16,7 @@ const createOfferTemplate = (options) => {
     .join(`\n`);
 };
 
-export const createTripEventTemplate = (event) => {
+const createTripEventTemplate = (event) => {
   const {type, title, dateStart, dateEnd, price, offers} = event;
 
   const offersList = createOfferTemplate(Array.from(offers));
@@ -61,3 +61,26 @@ export const createTripEventTemplate = (event) => {
     </li>`
   );
 };
+
+export default class Event {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+
+  getTemplate() {
+    return createTripEventTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

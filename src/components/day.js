@@ -1,7 +1,7 @@
-import {formatedTime} from '../util.js';
 import {MonthNames} from '../const.js';
+import {formatedTime, createElement} from '../util.js';
 
-export const createTripDayTemplate = (event) => {
+const createTripDayTemplate = (event) => {
   const {dateStart} = event;
 
   const dayStart = `${formatedTime(dateStart.getFullYear())}-${formatedTime(dateStart.getMonth() + 1)}-${formatedTime(dateStart.getDate())}`;
@@ -19,3 +19,26 @@ export const createTripDayTemplate = (event) => {
     </li>`
   );
 };
+
+export default class Day {
+  constructor(event) {
+    this._element = null;
+    this._event = event;
+  }
+
+  getTemplate() {
+    return createTripDayTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
