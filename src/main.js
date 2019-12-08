@@ -31,10 +31,9 @@ const renderTask = (event) => {
 const pageHeaderElem = document.querySelector(`.trip-main`);
 const pageInfoElem = pageHeaderElem.querySelector(`.trip-info`);
 const pageControlElem = pageHeaderElem.querySelector(`.trip-controls`);
-const pageTitleControlElem = pageHeaderElem.querySelector(`h2:nth-child(2)`);
 render(pageInfoElem, new EventInfoComponent().getElement(), RenderPosition.AFTERBEGIN);
-render(pageTitleControlElem, new MenuComponent().getElement(), RenderPosition.BEFOREEND);
-render(pageControlElem, new FilterComponent().getElement());
+render(pageControlElem, new MenuComponent().getElement(), RenderPosition.BEFOREEND);
+render(pageControlElem, new FilterComponent().getElement(), RenderPosition.BEFOREEND);
 
 const pageMainElem = document.querySelector(`.page-main`);
 const pageEventsElem = pageMainElem.querySelector(`.trip-events`);
