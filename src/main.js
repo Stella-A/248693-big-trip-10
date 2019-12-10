@@ -6,24 +6,41 @@ import DayComponent from './components/day.js';
 import EventComponent from './components/event.js';
 import EventEditComponent from './components/event-edit.js';
 import EventInfoComponent from './components/event-info.js';
+import NoEventsComponent from './components/no-events.js';
 import BoardComponent from './components/board.js';
 import {render, RenderPosition} from './util.js';
 
 const EVENT_COUNT = 3;
 
-const renderTask = (event) => {
+const renderEvent = (pageTripEventsElem, event) => {
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      replaceEditToEvent();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  const replaceEditToEvent = () => {
+    pageTripEventsElem.replaceChild(eventComponent.getElement(), eventEditComponent.getElement());
+  };
+
+  const replaceEventToEdit = () => {
+    pageTripEventsElem.replaceChild(eventEditComponent.getElement(), eventComponent.getElement());
+  };
+
   const eventComponent = new EventComponent(event);
   const eventEditComponent = new EventEditComponent(event);
 
   const editButton = eventComponent.getElement().querySelector(`.event__rollup-btn`);
   editButton.addEventListener(`click`, () => {
-    pageTripEventsElem.replaceChild(eventEditComponent.getElement(), eventComponent.getElement());
+    replaceEventToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
   });
 
   const editForm = eventEditComponent.getElement().querySelector(`.event__save-btn`);
-  editForm.addEventListener(`click`, () => {
-    pageTripEventsElem.replaceChild(eventComponent.getElement(), eventEditComponent.getElement());
-  });
+  editForm.addEventListener(`click`, replaceEditToEvent);
 
   render(pageTripEventsElem, eventComponent.getElement(), RenderPosition.BEFOREEND);
 };
@@ -31,21 +48,26 @@ const renderTask = (event) => {
 const pageHeaderElem = document.querySelector(`.trip-main`);
 const pageInfoElem = pageHeaderElem.querySelector(`.trip-info`);
 const pageControlElem = pageHeaderElem.querySelector(`.trip-controls`);
-const pageTitleControlElem = pageHeaderElem.querySelector(`h2:nth-child(2)`);
+
 render(pageInfoElem, new EventInfoComponent().getElement(), RenderPosition.AFTERBEGIN);
-render(pageTitleControlElem, new MenuComponent().getElement(), RenderPosition.BEFOREEND);
-render(pageControlElem, new FilterComponent().getElement());
+render(pageControlElem, new MenuComponent().getElement(), RenderPosition.BEFOREEND);
+render(pageControlElem, new FilterComponent().getElement(), RenderPosition.BEFOREEND);
 
 const pageMainElem = document.querySelector(`.page-main`);
 const pageEventsElem = pageMainElem.querySelector(`.trip-events`);
 const events = generateEvents(EVENT_COUNT);
-render(pageEventsElem, new SortingComponent().getElement(), RenderPosition.BEFOREEND);
 
-const boardComponent = new BoardComponent();
-render(pageEventsElem, boardComponent.getElement(), RenderPosition.BEFOREEND);
+if (events.length > 0) {
+  render(pageEventsElem, new SortingComponent().getElement(), RenderPosition.BEFOREEND);
 
-const pageTripDaysElem = pageEventsElem.querySelector(`.trip-days`);
-render(pageTripDaysElem, new DayComponent(events[1]).getElement(), RenderPosition.BEFOREEND);
+  const boardComponent = new BoardComponent();
+  render(pageEventsElem, boardComponent.getElement(), RenderPosition.BEFOREEND);
 
-const pageTripEventsElem = pageTripDaysElem.querySelector(`.trip-events__list`);
-events.forEach((event) => renderTask(event));
+  const pageTripDaysElem = pageEventsElem.querySelector(`.trip-days`);
+  render(pageTripDaysElem, new DayComponent(events[0]).getElement(), RenderPosition.BEFOREEND);
+
+  const pageTripEventsElem = pageTripDaysElem.querySelector(`.trip-events__list`);
+  events.forEach((event) => renderEvent(pageTripEventsElem, event));
+} else {
+  render(pageEventsElem, new NoEventsComponent().getElement(), RenderPosition.BEFOREEND);
+}
