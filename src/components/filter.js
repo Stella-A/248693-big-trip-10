@@ -1,4 +1,5 @@
 import {generateFilter} from '../mock/filter.js';
+import {createElement} from '../util.js';
 
 const createFilterItemTemplate = (filters) => {
   return filters
@@ -15,7 +16,7 @@ const createFilterItemTemplate = (filters) => {
     .join(`\n`);
 };
 
-export const createFilterTemplate = () => {
+const createFilterTemplate = () => {
   const filters = createFilterItemTemplate(generateFilter());
 
   return (
@@ -26,3 +27,25 @@ export const createFilterTemplate = () => {
     </form>`
   );
 };
+
+export default class Filter {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilterTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
