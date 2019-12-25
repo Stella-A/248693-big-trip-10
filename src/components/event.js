@@ -1,4 +1,5 @@
-import {generateTimeInterval, formatedTime, createElement} from '../util.js';
+import {generateTimeInterval, formatedTime} from '../utils/common.js';
+import AbstractComponent from './abstract-component.js';
 
 const createOfferTemplate = (options) => {
   return options
@@ -62,9 +63,10 @@ const createTripEventTemplate = (event) => {
   );
 };
 
-export default class Event {
+export default class Event extends AbstractComponent {
   constructor(event) {
-    this._element = null;
+    super();
+
     this._event = event;
   }
 
@@ -72,15 +74,7 @@ export default class Event {
     return createTripEventTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setButtonHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, handler);
   }
 }

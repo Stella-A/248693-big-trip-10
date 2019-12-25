@@ -1,5 +1,6 @@
 import {MonthNames} from '../const.js';
-import {formatedTime, createElement} from '../util.js';
+import {formatedTime} from '../utils/common.js';
+import AbstractComponent from './abstract-component.js';
 
 const createTripDayTemplate = (event) => {
   const {dateStart} = event;
@@ -20,25 +21,14 @@ const createTripDayTemplate = (event) => {
   );
 };
 
-export default class Day {
+export default class Day extends AbstractComponent {
   constructor(event) {
-    this._element = null;
+    super();
+
     this._event = event;
   }
 
   getTemplate() {
     return createTripDayTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

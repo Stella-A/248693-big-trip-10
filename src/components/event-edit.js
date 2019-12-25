@@ -1,5 +1,6 @@
 import {CityNames, Offers} from '../const.js';
-import {formatedTime, createElement} from '../util.js';
+import {formatedTime} from '../utils/common.js';
+import AbstractComponent from './abstract-component.js';
 
 const createOfferTemplate = (options) => {
   return options
@@ -184,9 +185,10 @@ const createEditTripEventTemplate = (event) => {
   );
 };
 
-export default class EventEdit {
+export default class EventEdit extends AbstractComponent {
   constructor(event) {
-    this._element = null;
+    super();
+
     this._event = event;
   }
 
@@ -194,15 +196,7 @@ export default class EventEdit {
     return createEditTripEventTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setSubmitHandler(handler) {
+    this.getElement().addEventListener(`submit`, handler);
   }
 }
