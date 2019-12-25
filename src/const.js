@@ -1,4 +1,4 @@
-const Offers = [
+export const Offers = [
   {
     title: `Add luggage`,
     price: `10`,
@@ -21,7 +21,7 @@ const Offers = [
   },
 ];
 
-const RouteTypes = [
+export const RouteTypes = [
   `taxi`,
   `bus`,
   `train`,
@@ -34,7 +34,7 @@ const RouteTypes = [
   `restaurant`,
 ];
 
-const CityNames = [
+export const CityNames = [
   `Amsterdam`,
   `London`,
   `Moscow`,
@@ -43,15 +43,15 @@ const CityNames = [
   `Praga`,
 ];
 
-const Titles = [
+export const Titles = [
   `to Geneva`,
   `to airport`,
   `into hotel`,
 ];
 
-const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
+export const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
 
-const MonthNames = [
+export const MonthNames = [
   `Jan`,
   `Feb`,
   `Mar`,
@@ -65,5 +65,3 @@ const MonthNames = [
   `Nov`,
   `Dec`,
 ];
-
-export {Offers, RouteTypes, CityNames, Titles, text, MonthNames};

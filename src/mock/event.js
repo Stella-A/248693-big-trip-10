@@ -64,7 +64,7 @@ const generateEvent = () => {
     dateStart: startDate,
     dateEnd: getRandomEndDate(startDate),
     price: getRandomIntegerNumber(MIN_PRICE, MAX_PRICE),
-    offers: new Set(getRandomCountArray(Offers, 3)),
+    offers: new Set(getRandomCountArray(Offers, 4)),
   };
 };
 
