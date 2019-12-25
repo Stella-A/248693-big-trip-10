@@ -1,4 +1,4 @@
-import SortComponent from '../components/sorting.js';
+import SortComponent, {SortType} from '../components/sorting.js';
 import DayComponent from '../components/day.js';
 import EventComponent from '../components/event.js';
 import EventEditComponent from '../components/event-edit.js';
@@ -46,18 +46,36 @@ export default class TripController {
   }
 
   render(events) {
-    if (events.length > 0) {
-      render(this._container, this._sortComponent, RenderPosition.BEFOREEND);
-
-      render(this._container, this._boardComponent, RenderPosition.BEFOREEND);
-
-      const pageTripDaysElem = this._container.querySelector(`.trip-days`);
-      render(pageTripDaysElem, new DayComponent(events[0]), RenderPosition.BEFOREEND);
-
-      const pageTripEventsElem = pageTripDaysElem.querySelector(`.trip-events__list`);
-      events.forEach((event) => renderEvent(pageTripEventsElem, event));
-    } else {
+    if (events.length === 0) {
       render(this._container, this._noEventsComponent, RenderPosition.BEFOREEND);
     }
+
+    render(this._container, this._sortComponent, RenderPosition.BEFOREEND);
+    render(this._container, this._boardComponent, RenderPosition.BEFOREEND);
+
+    const pageTripDaysElem = this._container.querySelector(`.trip-days`);
+    render(pageTripDaysElem, new DayComponent(events[0]), RenderPosition.BEFOREEND);
+
+    const pageTripEventsElem = pageTripDaysElem.querySelector(`.trip-events__list`);
+    events.forEach((event) => renderEvent(pageTripEventsElem, event));
+
+    this._sortComponent.setSortTypeChangeHandler((sortType) => {
+      let sortedTasks = [];
+
+      switch (sortType) {
+        case SortType.EVENT:
+          sortedTasks = events.slice(0, events.length);
+          break;
+        case SortType.TIME:
+          sortedTasks = events.slice().sort((a, b) => (b.dateEnd - b.dateStart) - (a.dateEnd - a.dateStart));
+          break;
+        case SortType.PRICE:
+          sortedTasks = events.slice().sort((a, b) => b.price - a.price);
+          break;
+      }
+
+      pageTripEventsElem.innerHTML = ``;
+      sortedTasks.forEach((event) => renderEvent(pageTripEventsElem, event));
+    });
   }
 }
